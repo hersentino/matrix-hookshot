@@ -116,6 +116,7 @@ listeners:
 #provisioning:
 #  # (Optional) Provisioning API for integration managers
 #  secret: "!secretToken"
+#  bodyLimit: "100kb"
 
 #bot:
 #  # (Optional) Define profile information for the bot user

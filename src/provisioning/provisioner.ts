@@ -32,7 +32,7 @@ export class Provisioner {
         });
         this.expressRouter.get("/v1/health", this.getHealth);
         this.expressRouter.use("/v1", this.checkAuth.bind(this));
-        this.expressRouter.use(express.json());
+        this.expressRouter.use(express.json({ limit: this.config.bodyLimit }));
         // Room Routes
         this.expressRouter.get(
             "/v1/connectiontypes",

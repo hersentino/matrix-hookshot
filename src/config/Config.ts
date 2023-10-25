@@ -437,6 +437,7 @@ export interface BridgeConfigProvisioning {
     bindAddress?: string;
     port?: number;
     secret: string;
+    bodyLimit?: string;
 }
 
 export interface BridgeConfigMetrics {
