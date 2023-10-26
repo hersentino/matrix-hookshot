@@ -1,6 +1,6 @@
 import { Server } from "http";
 import { Logger } from "matrix-appservice-bridge";
-import { Application, default as expressApp, NextFunction, Request, Response, Router } from "express";
+import { Application, default as expressApp, json, NextFunction, Request, Response, Router, urlencoded } from "express";
 import { errorMiddleware } from "./api";
 
 // Appserices can't be handled yet because the bot-sdk maintains control of it.
@@ -12,6 +12,7 @@ export interface BridgeConfigListener {
     bindAddress?: string;
     port: number;
     resources: Array<ResourceName>;
+    bodyLimitSize?: string;
 }
 
 const log = new Logger("ListenerService");
@@ -31,6 +32,8 @@ export class ListenerService {
         for (const listenerConfig of config) {
             const app = expressApp();
             app.use(Handlers.requestHandler());
+            app.use(json({limit: listenerConfig.bodyLimitSize}));
+            app.use(urlencoded({limit: listenerConfig.bodyLimitSize}));
             this.listeners.push({
                 config: listenerConfig,
                 app,
